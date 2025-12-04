@@ -3,16 +3,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_frontend_flutter/main.dart';
 
 void main() {
-  testWidgets('App generation message displayed', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+  testWidgets('App loads with four tabs', (WidgetTester tester) async {
+    await tester.pumpWidget(const GameBoostApp());
+    await tester.pumpAndSettle();
 
-    expect(find.text('mobile_frontend_flutter App is being generated...'), findsOneWidget);
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    expect(find.text('Game Boost Pro'), findsOneWidget);
+    expect(find.text('Dashboard'), findsOneWidget);
+    expect(find.text('Monitor'), findsOneWidget);
+    expect(find.text('Modes'), findsOneWidget);
+    expect(find.text('Notifications'), findsOneWidget);
   });
 
-  testWidgets('App bar has correct title', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Dashboard contains Boost Now button', (WidgetTester tester) async {
+    await tester.pumpWidget(const GameBoostApp());
+    await tester.pump();
 
-    expect(find.text('mobile_frontend_flutter'), findsOneWidget);
+    expect(find.text('Boost Now'), findsOneWidget);
+    expect(find.byIcon(Icons.rocket_launch), findsOneWidget);
   });
 }
